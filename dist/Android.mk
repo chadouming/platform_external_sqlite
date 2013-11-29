@@ -27,7 +27,8 @@ common_sqlite_flags := \
 	-DSQLITE_OMIT_BUILTIN_TEST \
 	-DSQLITE_OMIT_COMPILEOPTION_DIAGS \
 	-DSQLITE_OMIT_LOAD_EXTENSION \
-	-DSQLITE_DEFAULT_FILE_PERMISSIONS=0600
+	-DSQLITE_DEFAULT_FILE_PERMISSIONS=0600 \
+	-Dfdatasync=fdatasync
 
 common_src_files := sqlite3.c
 
@@ -56,6 +57,10 @@ LOCAL_SHARED_LIBRARIES += liblog \
 # include android specific methods
 LOCAL_WHOLE_STATIC_LIBRARIES := libsqlite3_android
 
+ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+LOCAL_WHOLE_STATIC_LIBRARIES += libqc-sqlite
+LOCAL_SHARED_LIBRARIES += libcutils
+endif
 
 include $(BUILD_SHARED_LIBRARY)
 
