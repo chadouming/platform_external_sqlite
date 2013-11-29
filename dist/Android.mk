@@ -35,6 +35,12 @@ common_src_files := sqlite3.c
 # the device library
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := libqc-sqlite
+LOCAL_SRC_FILES := libqc-sqlite.a
+include $(BUILD_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+
 LOCAL_SRC_FILES := $(common_src_files)
 
 ifneq ($(TARGET_ARCH),arm)
